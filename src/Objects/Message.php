@@ -34,7 +34,7 @@ class Message implements JsonSerializable
     /** @var ?string (optional) The name of the sender of the SMS (2 to 11 characters, only ascii A-Z 0-9 and spaces).
      * If not provided, a short code (like 36111) is used.
      * Be careful ! Some networks don't accept a sender name and, if you use the "commercial" strategy,
-     * an unsubscribe method will be added to your message ("STOP SMS 36111" for exemple).
+     * an unsubscribe method will be added to your message ("STOP SMS 36111" for example).
      * This may increase the length of your message.
      */
     private ?string $sender = null;
