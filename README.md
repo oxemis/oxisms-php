@@ -167,7 +167,7 @@ But, as we send SMS using **Premium routes**, you can specify a custom sender in
 The sender **MUST** respect these requirements :
 
 - **2 to 11** characters
-- Only ascii **[A-Z] [0-9] and spaces**
+- Only ascii **A-Z 0-9 and spaces**
 
 And please not that, **if you use the `commercial` strategy** and a **custom sender**, an unsubscribe method will be added to your message (`STOP SMS 36111` for example).
 **This can increase the length of the message**.
@@ -248,10 +248,10 @@ Strategy is very important for your message.
 There are two different stragtegies available :
 
 
-| Strategy                | Meaning | Restrictions |
-|-------------------------|---------|---------|
-| **Commecial** (default) | Used for **marketing** messages. | All sendings in 'commercial' strategy are not allowed in the evening after 9:00 p.m., in the morning before 8:00 a.m. as well as on Sundays and public holidays. **They will not be rejected**, they will be automatically postponed to the next available period. |
-| **Notification** | Used for **notifications** (password reset, two factors auth...) | No restriction |
+| Strategy                | Meaning                                                          | Restrictions                                                                                                                                                                                                                                                       |
+|-------------------------|------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Commecial** (default) | Used for **marketing** messages.                                 | All sendings in 'commercial' strategy are not allowed in the evening after 9:00 p.m., in the morning before 8:00 a.m. as well as on Sundays and public holidays. **They will not be rejected**, they will be automatically postponed to the next available period. |
+| **Notification**        | Used for **notifications** (password reset, two factors auth...) | No restriction                                                                                                                                                                                                                                                     |
 
 > **Please be very careful selecting the strategy.** Sending marketing messages with "Notification" strategy will probably lock your account cause of "complaints" from your recipients !
 
