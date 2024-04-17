@@ -1,11 +1,11 @@
 <?php
 
-namespace Oxemis\OxiSMS\Components;
+namespace Oxemis\OxiSms\Components;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
-use Oxemis\OxiSMS\ApiClient;
-use Oxemis\OxiSMS\ApiException;
+use Oxemis\OxiSms\OxiSmsClient;
+use Oxemis\OxiSms\OxiSmsException;
 
 /**
  * Base class
@@ -17,9 +17,9 @@ abstract class Component
     private string $baseUrl;
 
     /**
-     * @param ApiClient $apiClient
+     * @param OxiSmsClient $apiClient
      */
-    public function __construct(ApiClient $apiClient)
+    public function __construct(OxiSmsClient $apiClient)
     {
         $this->guzzleClient = new GuzzleClient([
                 'headers' => [
@@ -35,7 +35,7 @@ abstract class Component
      * @param string $route Subroute of the component (/user for example)
      * @param array|null $parameters HTTP query parameters
      * @return mixed                    Object, Array, Null (for 204) - Please check the API documentation
-     * @throws ApiException
+     * @throws OxiSmsException
      */
     protected function request(string $verb, string $route, array $parameters = null, string $body = null)
     {
@@ -55,7 +55,7 @@ abstract class Component
             $res = $this->guzzleClient->request($verb, $this->baseUrl . $route, $params,);
 
             if (($res->getStatusCode() < 200) or ($res->getStatusCode() > 299)) {
-                throw new ApiException($res->getBody(), $res->getStatusCode());
+                throw new OxiSmsException($res->getBody(), $res->getStatusCode());
             }
 
         } catch (GuzzleException $e) {
@@ -71,12 +71,12 @@ abstract class Component
                     "Code")) || (!property_exists($responseBodyAsJSON, "Message"))) {
 
                 // Unkown error - Invalid JSON or JSON without API Exception Properties (code + message)
-                throw new ApiException($e->getMessage(), $e->getCode());
+                throw new OxiSmsException($e->getMessage(), $e->getCode());
 
             } else {
 
                 // Error sent by the api (JSON)
-                throw new ApiException($responseBodyAsJSON->Message, $responseBodyAsJSON->Code);
+                throw new OxiSmsException($responseBodyAsJSON->Message, $responseBodyAsJSON->Code);
 
             }
 
@@ -95,7 +95,7 @@ abstract class Component
 
             if (!$return) {
                 // Invalid JSON
-                throw new ApiException("Invalid JSON answer from API : " . $res->getBody(), 666);
+                throw new OxiSmsException("Invalid JSON answer from API : " . $res->getBody(), 666);
             }
 
         }

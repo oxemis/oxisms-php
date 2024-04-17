@@ -1,6 +1,6 @@
 <?php
 
-namespace Oxemis\OxiSMS\Objects;
+namespace Oxemis\OxiSms\Objects;
 
 /**
  * This class is used to help developpers.

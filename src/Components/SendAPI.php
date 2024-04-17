@@ -1,12 +1,12 @@
 <?php
 
-namespace Oxemis\OxiSMS\Components;
+namespace Oxemis\OxiSms\Components;
 
-use Oxemis\OxiSMS\ApiClient;
-use Oxemis\OxiSMS\ApiException;
-use Oxemis\OxiSMS\Objects\Message;
-use Oxemis\OxiSMS\Objects\ScheduledSending;
-use Oxemis\OxiSMS\Objects\Sending;
+use Oxemis\OxiSms\OxiSmsClient;
+use Oxemis\OxiSms\OxiSmsException;
+use Oxemis\OxiSms\Objects\Message;
+use Oxemis\OxiSms\Objects\ScheduledSending;
+use Oxemis\OxiSms\Objects\Sending;
 
 /**
  * Class for https://api.oxisms.com/doc/#/send
@@ -15,9 +15,9 @@ class SendAPI extends Component
 {
 
     /**
-     * @param ApiClient $apiClient
+     * @param OxiSmsClient $apiClient
      */
-    public function __construct(ApiClient $apiClient)
+    public function __construct(OxiSmsClient $apiClient)
     {
         parent::__construct($apiClient);
     }
@@ -25,7 +25,7 @@ class SendAPI extends Component
     /**
      * @param Message $message  The Message you want to send.
      * @return Sending          Informations about the sending (see API doc for details).
-     * @throws ApiException
+     * @throws OxiSmsException
      */
     public function send(Message $message): Sending
     {
@@ -35,7 +35,7 @@ class SendAPI extends Component
     /**
      * @param string $JSONMessage   The JSON representation of the message you want to send (see :https://api.oxisms.com/doc/#/send/post_send)
      * @return Sending              Informations about the sending (see API doc for details).
-     * @throws ApiException
+     * @throws OxiSmsException
      */
     public function sendJSON(string $JSONMessage): Sending
     {
@@ -46,7 +46,7 @@ class SendAPI extends Component
     /**
      * @param Message $message      The Message you want to send.
      * @return Sending              Information about the future cost of the sending (see API doc for details).
-     * @throws ApiException
+     * @throws OxiSmsException
      */
     public function getCostOfMessage(Message $message): Sending
     {
@@ -56,7 +56,7 @@ class SendAPI extends Component
     /**
      * @param string $JSONMessage   The JSON representation of the message you want to send (see :https://api.oxisms.com/doc/#/send/post_send)
      * @return Sending              Information about the sending (see API doc for details).
-     * @throws ApiException
+     * @throws OxiSmsException
      */
     public function getCostOfMessageJSON(string $JSONMessage): Sending
     {
@@ -66,7 +66,7 @@ class SendAPI extends Component
 
     /**
      * @return array<ScheduledSending>|null           List of scheduled sendings.
-     * @throws ApiException
+     * @throws OxiSmsException
      */
     public function getScheduled(): ?array
     {
@@ -85,7 +85,7 @@ class SendAPI extends Component
     /**
      * @param string $sendingID The ID of the sending you want to cancel.
      * @return bool
-     * @throws ApiException
+     * @throws OxiSmsException
      */
     public function deleteScheduled(string $sendingID): bool
     {

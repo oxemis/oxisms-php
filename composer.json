@@ -5,7 +5,7 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Oxemis\\OxiSMS\\": "src/"
+      "Oxemis\\OxiSms\\": "src/"
     }
   },
   "authors": [

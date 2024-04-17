@@ -1,6 +1,6 @@
 <?php
 
-namespace Oxemis\OxiSMS\Objects;
+namespace Oxemis\OxiSms\Objects;
 
 use DateTime;
 use DateTimeInterface;

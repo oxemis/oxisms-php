@@ -1,9 +1,9 @@
 <?php
 
-namespace Oxemis\OxiSMS\Components;
+namespace Oxemis\OxiSms\Components;
 
-use Oxemis\OxiSMS\ApiClient;
-use Oxemis\OxiSMS\ApiException;
+use Oxemis\OxiSms\OxiSmsClient;
+use Oxemis\OxiSms\OxiSmsException;
 
 /**
  * Class for https://api.oxisms.com/doc/#/blacklists
@@ -11,7 +11,7 @@ use Oxemis\OxiSMS\ApiException;
 class BlacklistsAPI extends Component
 {
 
-    public function __construct(ApiClient $apiClient)
+    public function __construct(OxiSmsClient $apiClient)
     {
         parent::__construct($apiClient);
     }
@@ -19,7 +19,7 @@ class BlacklistsAPI extends Component
     /**
      * @param int $lastId           (Optional) Get the bounces added since this ID.
      * @return array<string>        List of blacklisted phone numbers (the items index in the array are the IDs of the blacklisted numbers).
-     * @throws ApiException
+     * @throws OxiSmsException
      */
     public function getBlacklistedPhoneNumbers(int $lastId = -1): ?array
     {
@@ -38,7 +38,7 @@ class BlacklistsAPI extends Component
     /**
      * @param string $phoneNumber   Phone number to add (you can add multiple numbers separated by ';').
      * @return bool                 true means that the phone number has been added.
-     * @throws ApiException
+     * @throws OxiSmsException
      */
     public function addPhoneNumberToBlacklist(string $phoneNumber): bool
     {
@@ -49,7 +49,7 @@ class BlacklistsAPI extends Component
     /**
      * @param string $phoneNumber   The phone number you want to remove.
      * @return bool                 true means that the phone number has been removed.
-     * @throws ApiException
+     * @throws OxiSmsException
      */
     public function deletePhoneNumberInBlacklist(string $phoneNumber): bool
     {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Oxemis\OxiSMS\Components;
+namespace Oxemis\OxiSms\Components;
 
-use Oxemis\OxiSMS\ApiClient;
-use Oxemis\OxiSMS\ApiException;
-use Oxemis\OxiSMS\Objects\User;
+use Oxemis\OxiSms\OxiSmsClient;
+use Oxemis\OxiSms\OxiSmsException;
+use Oxemis\OxiSms\Objects\User;
 
 /**
  * Class for https://api.oxisms.com/doc/#/user
@@ -12,7 +12,7 @@ use Oxemis\OxiSMS\Objects\User;
 class UserAPI extends Component
 {
 
-    public function __construct(ApiClient $apiClient)
+    public function __construct(OxiSmsClient $apiClient)
     {
         parent::__construct($apiClient);
     }
@@ -21,7 +21,7 @@ class UserAPI extends Component
      * Get informations about your account.
      *
      * @return User             Current user information (see https://api.oxisms.com/doc/#/user).
-     * @throws ApiException
+     * @throws OxiSmsException
      */
     public function getUser(): object
     {

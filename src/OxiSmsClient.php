@@ -1,14 +1,14 @@
 <?php
 
-namespace Oxemis\OxiSMS;
+namespace Oxemis\OxiSms;
 
-use Oxemis\OxiSMS\Components\SendAPI;
-use Oxemis\OxiSMS\Components\UserAPI;
+use Oxemis\OxiSms\Components\SendAPI;
+use Oxemis\OxiSms\Components\UserAPI;
 
 /**
  * API Client for OxiSMS
  */
-class ApiClient
+class OxiSmsClient
 {
 
     private string $auth;

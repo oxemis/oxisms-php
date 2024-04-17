@@ -57,24 +57,25 @@ export OXISMS_API_LOGIN='your API login'
 export OXISMS_API_PWD='your API password'
 ```
 
-Initialize your **OxiSMS** Client:
+Initialize your **OxiSms** Client:
 
 ```php
-use \Oxemis\OxiSMS;
+require_once 'vendor/autoload.php';
+use \Oxemis\OxiSms\OxiSmsClient;
 
 // getenv will allow us to get the OXISMS_API_LOGIN/OXISMS_API_PWD variables we created before:
 
 $apilogin = getenv('OXISMS_API_LOGIN');
 $apipwd = getenv('OXISMS_API_PWD');
 
-$oxisms = new ApiClient($apilogin, $apipwd);
+$oxisms = new OxiSmsClient($apilogin, $apipwd);
 
 // or, without using environment variables:
 
 $apilogin = 'your API login';
 $apipwd = 'your API password';
 
-$oxisms = new ApiClient($apilogin, $apipwd);
+$oxisms = new OxiSmsClient($apilogin, $apipwd);
 ```
 
 ## Getting information about your account
@@ -82,9 +83,10 @@ You will find all the information about your OxiSMS account with the "**UserAPI*
 Informations returned are documented in the class.
 
 ```php
-require_once "./vendor/autoload.php";
+require_once "vendor/autoload.php";
+use Oxemis\OxiSms\OxiSmsClient;
 
-$client = new Oxemis\OxiSMS\ApiClient(API_LOGIN,API_PWD);
+$client = new OxiSmsClient(API_LOGIN,API_PWD);
 $user = $client->userAPI->getUser();
 
 echo "Name :" . $user->getCompanyName() . "\n" .
@@ -97,15 +99,14 @@ In order to send a mail, you must instantiate a `Message` object and, send it, v
 Here's a simple sample of how to send a SMS :
 
 ```php
-<?php
-require 'vendor/autoload.php';
-use Oxemis\OxiSMS\ApiClient;  
-use Oxemis\OxiSMS\Objects\Message;
+require_once 'vendor/autoload.php';
+use Oxemis\OxiSms\OxiSmsClient;  
+use Oxemis\OxiSms\Objects\Message;
 
 // Create the Client
 $apilogin = 'your API login';
 $apipwd = 'your API password';
-$client = new ApiClient($apilogin, $apipwd);
+$client = new OxiSmsClient($apilogin, $apipwd);
 
 // Define the message
 $message = new Message();  
@@ -124,10 +125,12 @@ With this library you can send customized messages based on templating.
 Basically, every content between `{{` and `}}` will be replaced by the corresponding **recipient metadata**.
 
 Here is a simple sample :
+
 ```php
-use Oxemis\OxiSMS\Objects\Recipient;
-use Oxemis\OxiSMS\Objects\Message;
-use Oxemis\OxiSMS\ApiClient;
+require_once 'vendor/autoload.php';
+use Oxemis\OxiSms\Objects\Recipient;
+use Oxemis\OxiSms\Objects\Message;
+use Oxemis\OxiSms\OxiSmsClient;
 
 // First of all, we need recipients with meta data
 $myFirstRecipient = new Recipient();
@@ -145,7 +148,7 @@ $m->addRecipient($myFirstRecipient)
 ->setMessage("Hi {{Name}} ! This is your ID : {{ID}}");
 
 // Then we send the two messages in one call !
-$client = new ApiClient(API_LOGIN, API_PWD);
+$client = new OxiSmsClient(API_LOGIN, API_PWD);
 $client->sendAPI->send($m);
 ```
 
@@ -172,6 +175,10 @@ And please not that, **if you use the `commercial` strategy** and a **custom sen
 Ok for you ? So let's set the sender in our previous sample with the `setSender` method:
 
 ```php
+require_once 'vendor/autoload.php';
+use Oxemis\OxiSms\OxiSmsClient;  
+use Oxemis\OxiSms\Objects\Message;
+
 // Define the message
 $message = new Message();  
 $message
@@ -180,6 +187,7 @@ $message
 ->setMessage("Hi there ! This is my first SMS sent with the awesome oxisms-php library !");
 
 // Send the message
+$client = new OxiSmsClient(API_LOGIN, API_PWD);
 $client->sendAPI->send($message);
 ```
 
@@ -220,7 +228,7 @@ If that cost is exceeded, OxiSMS will refuse to send your message.
 This example will throw an API Exception :
 
 ```php
-$message = new \Oxemis\OxiSMS\Objects\Message();  
+$message = new \Oxemis\OxiSms\Objects\Message();  
 $message
 ->setSender("OxiSMS")
 ->addRecipientPhoneNumber("+33666666666")
@@ -228,7 +236,7 @@ $message
 ->setMaxCreditsPerSending(1)
 ->setMessage("Hi there ! This is my first SMS sent with the awesome oxisms-php library !");
 
-// Will throw an API Exception : 
+// Will throw an OxiSmsException : 
 // Code : 406
 // Message : Total credits needed to send the message (2) exceeds the MaxCreditsPerSending parameter (1).
 $client->sendAPI->send($message);
@@ -250,7 +258,7 @@ There are two different stragtegies available :
 To specify your strategy, set it in the `Message` :
 
 ```php
-$message = new Message();  
+$message = new \Oxemis\OxiSms\Objects\Message();
 $message
 ->setStrategy(Message::STRATEGY_NOTIFICATION)
 ->addRecipientPhoneNumber("+33666666666") 
