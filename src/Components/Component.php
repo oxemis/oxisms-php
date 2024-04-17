@@ -52,7 +52,7 @@ abstract class Component
         try {
 
             // Make request
-            $res = $this->guzzleClient->request($verb, $this->baseUrl . $route, $params,);
+            $res = $this->guzzleClient->request($verb, $this->baseUrl . $route, $params);
 
             if (($res->getStatusCode() < 200) or ($res->getStatusCode() > 299)) {
                 throw new OxiSmsException($res->getBody(), $res->getStatusCode());
