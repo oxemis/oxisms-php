@@ -50,7 +50,18 @@ class SendAPI extends Component
      */
     public function getCostOfMessage(Message $message): Sending
     {
-        return $this->getCostOfMessageJSON(json_encode($message));
+        // We don't care about this property when talking about cost
+        $oldSetMaxCredits = $message->getMaxCreditsPerSending();
+        $message->setMaxCreditsPerSending(null);
+
+        // Get the JSON content
+        $json = json_encode($message, JSON_PRETTY_PRINT);
+
+        // Restore the property
+        $message->setMaxCreditsPerSending($oldSetMaxCredits);
+
+        // Run the query
+        return $this->getCostOfMessageJSON($json);
     }
 
     /**
