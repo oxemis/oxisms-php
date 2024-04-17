@@ -382,7 +382,7 @@ class Message implements JsonSerializable
 
             $r["PhoneNumber"] = $recipient->getPhoneNumber();
             if (!empty($recipient->getMetaData())) {
-                $r["MetaData "] = $recipient->getMetaData();
+                $r["MetaData"] = $recipient->getMetaData();
             }
             $json["Recipients"][] = $r;
 
