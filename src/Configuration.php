@@ -6,7 +6,7 @@ namespace Oxemis\OxiSms;
 
 class Configuration
 {
-    public const WRAPPER_VERSION = "1.0.0";
+    public const WRAPPER_VERSION = "1.0.1";
     public const USER_AGENT = 'oxisms-php/';
     public const MAIN_URL = 'api.oxisms.com';
 }
