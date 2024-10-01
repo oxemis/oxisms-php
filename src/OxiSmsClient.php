@@ -14,6 +14,8 @@ class OxiSmsClient
     private string $auth;
     private string $userAgent;
     private string $baseURL;
+    public UserAPI $userAPI;
+    public SendAPI $sendAPI;
 
     public function __construct(string $apiLogin, string $apiPassword)
     {
