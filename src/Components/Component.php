@@ -37,7 +37,7 @@ abstract class Component
      * @return mixed                    Object, Array, Null (for 204) - Please check the API documentation
      * @throws OxiSmsException
      */
-    protected function request(string $verb, string $route, array $parameters = null, string $body = null)
+    protected function request(string $verb, string $route, ?array $parameters = null, ?string $body = null)
     {
 
         // Build the query
